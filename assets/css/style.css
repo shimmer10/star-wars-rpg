@@ -2,7 +2,7 @@ body {
     background-image: url(https://wallpapercave.com/wp/wp2902991.jpg);
 }
 button {
-    margin-bottom: 100px;
+    margin-bottom: 100px !important;
 }
 h3 {
     color: gold;
@@ -19,4 +19,10 @@ h3 {
 .card-img-top {
     width: 172px;
     height: 310px;
+}
+.jumbotron {
+    border: 8px solid gold;
+    background-image: url("../images/banner.png");
+    background-size: cover;
+    height: 300px !important;
 }
