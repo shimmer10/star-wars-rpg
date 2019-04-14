@@ -1,0 +1,22 @@
+body {
+    background-image: url(https://wallpapercave.com/wp/wp2902991.jpg);
+}
+button {
+    margin-bottom: 100px;
+}
+h3 {
+    color: gold;
+    font-family: 'Carrois Gothic', sans-serif;
+}
+.arena {
+    text-align: center;
+    text-decoration: underline;
+}
+.card {
+    margin-top: 20px;
+    text-align: center;
+}
+.card-img-top {
+    width: 172px;
+    height: 310px;
+}
