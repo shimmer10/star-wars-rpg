@@ -1,5 +1,6 @@
 
 $(document).ready(function () {
+
     // div elements
     var heroDiv = $("#hero");
     var opponentDiv = $("#opponent");
@@ -15,15 +16,15 @@ $(document).ready(function () {
     var clearButtonDiv = $("#clear-button");
 
     // variables
-    var heroCharacter;
+    var heroCharacter = "";
     var opponentCharacter = "";
 
-    // setup heros in arena
-
+    // heros
     lukeDiv.on("click", function () {
         if (!heroCharacter) {
             heroCharacter = "luke";
             lukeDiv.appendTo(heroDiv);
+            console.log("hero: " + heroCharacter);
         }
     });
     reyDiv.on("click", function () {
@@ -45,11 +46,12 @@ $(document).ready(function () {
         }
     });
 
-    // setup oponent in arena
+    // opponents
     darthVaderDiv.on("click", function () {
         if (!opponentCharacter) {
             opponentCharacter = "darthVader";
             darthVaderDiv.appendTo(opponentDiv);
+            console.log("opponent: " + opponentCharacter);
         }
     });
     kyloRenDiv.on("click", function () {
@@ -71,14 +73,30 @@ $(document).ready(function () {
         }
     });
 
+    //checking too early
+    // // check if hero and oponent have been chosen
+    // if (heroCharacter && opponentCharacter) {
+    //     console.log("made it here")
+    //     enableAttack();
+    // }
+
+    attackButtonDiv.on("click", function () {
+        // attack code
+    });
+
     clearButtonDiv.on("click", function () {
         returnCardToStage(heroDiv, heroCharacter, opponentDiv, opponentCharacter);
         heroDiv.empty();
         opponentDiv.empty();
         heroCharacter = "";
         opponentCharacter = "";
+        console.log("hero: " + heroCharacter);
+        console.log("opponent: " + opponentCharacter);
     });
 
+    function enableAttack() {
+        $(".btn-danger").removeAttr('disabled');
+    }
     function returnCardToStage(heroDiv, heroCharacter, opponentDiv, opponentCharacter) {
         // reset heros
         if (heroCharacter === "luke") {
