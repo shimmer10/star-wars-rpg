@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Carrois+Gothic" rel="stylesheet">
-    <script src="./assets/javascript/game.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -20,9 +20,43 @@
 
             </div>
         </div>
+        <h3 class="arena">Arena</h3>
+        <div class="row">
+            <div class="col-lg-2">
+
+            </div>
+            <div class="col-lg-3">
+                <div id="hero">
+                </div>
+            </div>
+            <div class="col-lg-2">
+
+            </div>
+            <div class="col-lg-3">
+                <div id="opponent">
+                </div>
+            </div>
+            <div class="col-lg-2">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+
+            </div>
+            <div class="col-lg-8">
+                <button type="button" class="btn btn-danger btn-lg btn-block disabled" id="attack-button"
+                    aria-disabled="true">ATTACK</button>
+                <button type="button" class="btn btn-secondary btn-lg btn-block" id="clear-button"
+                    >CLEAR</button>
+            </div>
+            <div class="col-lg-2">
+
+            </div>
+        </div>
         <h3>Chose a Hero:</h3>
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-3" id="luke-card">
                 <div class="card  bg-light mb-3" id="luke">
                     <div class="card-header">
                         Luke Skywalker
@@ -33,7 +67,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3" id="rey-card">
                 <div class="card bg-light mb-3" id="rey">
                     <div class="card-header">
                         Rey
@@ -44,7 +78,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3" id="han-solo-card">
                 <div class="card bg-light mb-3" id="han-solo">
                     <div class="card-header">
                         Han Solo
@@ -55,7 +89,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3" id="yoda-card">
                 <div class="card bg-light mb-3" id="yoda">
                     <div class="card-header">
                         Yoda
@@ -69,7 +103,7 @@
         </div>
         <h3>Chose an Opponent:</h3>
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-3" id="darth-vader-card">
                 <div class="card  bg-dark text-white mb-3" id="darth-vader">
                     <div class="card-header">
                         Darth Vader
@@ -80,7 +114,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3" id="kylo-ren-card">
                 <div class="card bg-dark text-white mb-3" id="kylo-ren">
                     <div class="card-header">
                         Kylo Ren
@@ -91,7 +125,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3" id="darth-maul-card">
                 <div class="card bg-dark text-white mb-3" id="darth-maul">
                     <div class="card-header">
                         Darth Maul
@@ -102,7 +136,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3" id="senator-palpatine-card">
                 <div class="card bg-dark text-white mb-3" id="senator-palpatine">
                     <div class="card-header">
                         Senator Palpatine
@@ -114,48 +148,8 @@
                 </div>
             </div>
         </div>
-        <h3 class="arena">Arena</h3>
-        <div class="row">
-            <div class="col-lg-2">
-
-            </div>
-            <div class="col-lg-3 hero">
-                <div class="card  bg-light mb-3">
-                    <div class="card-header">
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2">
-
-            </div>
-            <div class="col-lg-3 opponent">
-                <div class="card bg-dark mb-3">
-                    <div class="card-header">
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2">
-
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-2">
-
-            </div>
-            <div class="col-lg-8">
-                <button type="button" class="btn btn-danger btn-lg btn-block disabled" aria-disabled="true">ATTACK</button>
-            </div>
-            <div class="col-lg-2">
-
-            </div>
-        </div>
     </div>
+    <script src="./assets/javascript/game.js"></script>
 </body>
 
 </html>
