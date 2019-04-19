@@ -1,9 +1,7 @@
 body {
     background-image: url(https://wallpapercave.com/wp/wp2902991.jpg);
 }
-/* button {
-    margin-bottom: 100px !important;
-} */
+
 h3 {
     color: gold;
     font-family: 'Carrois Gothic', sans-serif;
@@ -25,4 +23,7 @@ h3 {
     background-image: url("../images/banner.png");
     background-size: cover;
     height: 350px !important;
+}
+.red {
+    color: red;
 }
