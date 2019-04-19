@@ -1,206 +1,201 @@
 
 $(document).ready(function () {
 
+    // characters
+    var luke = {
+        "firstName": "Luke",
+        "lastName": "Skywalker",
+        "visibleHP": 240,
+        "hitPoints": 240,
+        "attackPower": 5,
+        "status": "hero",
+        "image": "./assets/images/LukeSkywalker.jpg"
+    };
+    var rey = {
+        "firstName": "Rey",
+        "lastName": "",
+        "visibleHP": 250,
+        "hitPoints": 250,
+        "attackPower": 6,
+        "status": "hero",
+        "image": "./assets/images/ReyReady.png"
+    };
+    var hanSolo = {
+        "firstName": "Han",
+        "lastName": "Solo",
+        "visibleHP": 230,
+        "hitPoints": 230,
+        "attackPower": 4,
+        "status": "hero",
+        "image": "./assets/images/HanSolo.jpg"
+    };
+    var yoda = {
+        "firstName": "Yoda",
+        "lastName": "",
+        "visibleHP": "unknown",
+        "hitPoints": 250,
+        "attackPower": 7,
+        "status": "hero",
+        "image": "./assets/images/Yoda.jpg"
+    };
+    var darthVader = {
+        "firstName": "Darth",
+        "lastName": "Vader",
+        "visibleHP": 240,
+        "hitPoints": 240,
+        "attackPower": 5,
+        "status": "opponent",
+        "image": "./assets/images/DarthVader.jpg"
+    };
+    var kyloRen = {
+        "firstName": "Kylo",
+        "lastName": "Ren",
+        "visibleHP": 250,
+        "hitPoints": 250,
+        "attackPower": 6,
+        "status": "opponent",
+        "image": "./assets/images/KyloRen.jpg"
+    };
+    var darthMaul = {
+        "firstName": "Darth",
+        "lastName": "Maul",
+        "visibleHP": 230,
+        "hitPoints": 230,
+        "attackPower": 4,
+        "status": "opponent",
+        "image": "./assets/images/DarthMaul.jpg"
+    };
+    var senatorPalpatine = {
+        "firstName": "Senator",
+        "lastName": "Palpatine",
+        "visibleHP": "Unknown",
+        "hitPoints": 300,
+        "attackPower": 4,
+        "status": "opponent",
+        "image": "./assets/images/SenatorPalpatine.jpg"
+    };
+
+
     // div elements
-    var cardDiv = $(".card");
-    var heroDiv = $("#hero");
-    var opponentDiv = $("#opponent");
-    var lukeDiv = $("#luke");
-    var reyDiv = $("#rey");
-    var hanSoloDiv = $("#han-solo");
-    var yodaDiv = $("#yoda");
-    var darthVaderDiv = $("#darth-vader");
-    var kyloRenDiv = $("#kylo-ren");
-    var darthMaulDiv = $("#darth-maul");
-    var senatorPalpatineDiv = $("#senator-palpatine");
-    var attackButtonDiv = $("#attack-button");
-    var clearButtonDiv = $("#clear-button");
+    var arenaDiv = $(".arena");
+    var arenaHeroDiv = $("#arena-hero")
+    var heroCardsDiv = $("#hero-cards");
+    var arenaOpponentDiv = $("#arena-opponent");
+    var opponentCardsDiv = $("#opponent-cards");
+    var buttonsDiv = $("#buttons");
+    var attackButton = $("#attack-button");
 
     // variables
-    var heroArray = ["luke", "rey", "hanSolo", "yoda"];
-    var heroCharacter = "";
+    var characterArray = [luke, rey, hanSolo, yoda, darthVader, kyloRen, darthMaul, senatorPalpatine];
+    var heroCharacterChosen = false;
     var heroHitPoints = 0;
-    var attackPower = 6;
-    var opponentArray = ["darthVader", "kyloRen", "darthMaul", "senatorPalpatine"];
-    var opponentCharacter = "";
+    var opponentCharacterChosen = false;
+    var opponentArray = [darthVader.firstName, kyloRen.firstName, darthMaul.firstName, senatorPalpatine.firstName]
     var opponentHitPoints = 0;
-    var counterAttackPower = 6;
+    var allDefeated = false;
 
-    var attackButtonHit = false;
+    arenaDiv.text("Arena")
+    buildCards();
 
-    buildHeros();
-    buildOpponents();
+    // build the character cards
+    function buildCards() {
+        $.each(characterArray, function () {
+            var character = this;
+            var status = this.status;
+            var columnDiv = $("<div/>", { class: "col-lg-3" });
+            if (status === "hero") {
+                var cardDiv = $("<div/>", { class: "card bg-light mb-3", id: " hero " + character.hitPoints + " " + character.attackPower });
+            }
+            else {
+                var cardDiv = $("<div/>", { class: "card  bg-dark text-white mb-3", id: "opponent " + character.hitPoints + " " + character.attackPower + " " + character.firstName });
+            }
+            var cardHeader = $("<div/>", { class: "card-header", text: character.firstName + " " + character.lastName });
+            var cardImage = $("<img/>", { class: "card-img-top", src: character.image });
+            var cardBody = $("<div/>", { class: "card-body" });
+            var cardText = $("<div/>", { class: "card-footer", text: "Hit Points: " + character.visibleHP });
 
-    function buildHeros() {
-        lukeDiv.on("click", function () {
-            if (!heroCharacter) {
-                heroCharacter = "luke";
-                heroHitPoints = 240;
-                lukeDiv.appendTo(heroDiv);
-                checkAttackButton();
-                console.log("hero: " + heroCharacter);
+            cardHeader.appendTo(cardDiv);
+            cardBody.appendTo(cardDiv);
+            cardText.appendTo(cardDiv);
+            cardImage.appendTo(cardBody);
+            cardDiv.appendTo(columnDiv);
+            if (status === "hero") {
+                columnDiv.appendTo(heroCardsDiv)
             }
-        });
-        reyDiv.on("click", function () {
-            if (!heroCharacter) {
-                heroCharacter = "rey";
-                heroHitPoints = 250;
-                reyDiv.appendTo(heroDiv);
-                checkAttackButton()
+            else {
+                columnDiv.appendTo(opponentCardsDiv)
             }
-        });
-        hanSoloDiv.on("click", function () {
-            if (!heroCharacter) {
-                heroCharacter = "hanSolo";
-                heroHitPoints = 230;
-                hanSoloDiv.appendTo(heroDiv);
-                checkAttackButton()
-            }
-        });
-        yodaDiv.on("click", function () {
-            if (!heroCharacter) {
-                heroCharacter = "yoda";
-                heroHitPoints = 300;
-                yodaDiv.appendTo(heroDiv);
-                checkAttackButton()
-            }
-        });
+        })
     }
 
-    function buildOpponents() {
-        darthVaderDiv.on("click", function () {
-            if (!opponentCharacter) {
-                opponentCharacter = "darthVader";
-                opponentHitPoints = 240;
-                darthVaderDiv.appendTo(opponentDiv);
-                checkAttackButton()
+    // move chosen characters to arena
+    $(".card").on("click", function () {
+        arenaDiv.text("Arena:")
+        if (this.id.indexOf("hero") >= 0) {
+            if (!heroCharacterChosen) {
+                heroCharacterChosen = true;
+                heroHitPoints = this.id.split(" ")[2];
+                heroAttackPower = this.id.split(" ")[3];
+                heroStaticAP = this.id.split(" ")[3];
+                $(this).appendTo(arenaHeroDiv);
+                createAttackButton();
             }
-        });
-        kyloRenDiv.on("click", function () {
-            if (!opponentCharacter) {
-                opponentCharacter = "kyloRen";
-                opponentHitPoints = 250;
-                kyloRenDiv.appendTo(opponentDiv);
-                checkAttackButton()
+        }
+        else {
+            if (!opponentCharacterChosen) {
+                opponentCharacterChosen = true;
+                opponentHitPoints = this.id.split(" ")[1];
+                opponentAttackPower = this.id.split(" ")[2];
+                opponentName = this.id.split(" ")[3];
+                $(this).appendTo(arenaOpponentDiv);
+                createAttackButton();
             }
-        });
-        darthMaulDiv.on("click", function () {
-            if (!opponentCharacter) {
-                opponentCharacter = "darthMaul";
-                opponentHitPoints = 230;
-                darthMaulDiv.appendTo(opponentDiv);
-                checkAttackButton()
-            }
-        });
-        senatorPalpatineDiv.on("click", function () {
-            if (!opponentCharacter) {
-                opponentCharacter = "senatorPalpatine";
-                opponentHitPoints = 300;
-                senatorPalpatineDiv.appendTo(opponentDiv);
-                checkAttackButton()
-            }
-        });
-    }
+        }
+    });
 
-
-    attackButtonDiv.on("click", function () {
-        attackButtonHit = true;
+    // attack function
+    $(document).on('click', attackButton, function () {
         if (heroHitPoints > 0 && opponentHitPoints > 0) {
-            // hero attacks
-            var heroAttack = (Math.floor(Math.random() * attackPower) + 1);
-            opponentHitPoints = opponentHitPoints - heroAttack;
-            attackPower = attackPower + 6;
-            if (opponentHitPoints < 0) {
-                var index = opponentArray.indexOf(opponentCharacter);
+            var heroAttack = (Math.floor(Math.random() * heroAttackPower) + 1);
+            opponentHitPoints = parseInt(opponentHitPoints) - parseInt(heroAttack);
+            heroAttackPower = parseInt(heroAttackPower) + parseInt(heroStaticAP);
+            if (opponentHitPoints <= 0) {
+                var index = opponentArray.indexOf(opponentName);
                 if (index !== -1) {
                     opponentArray.splice(index, 1);
                 }
-                opponentCharacter = "";
-                opponentDiv.empty();
+                arenaDiv.text("Arena: Choose another oponent")
+                opponentCharacterChosen = false;
+                arenaOpponentDiv.empty();
+                buttonsDiv.empty();
                 if (opponentArray === undefined || opponentArray.length == 0) {
-                    //fully lost
-                    console.log("fully lost");
+                    arenaDiv.html("<h1><strong>Congratulations! You defeated all of the opponents!</strong></h1>");
+                    allDefeated = true;
+                    // enableResetButton();
                 }
             }
 
             // opponent attacks
-            var opponentAttack = (Math.floor(Math.random() * counterAttackPower) + 1);
+            var opponentAttack = (Math.floor(Math.random() * opponentAttackPower) + 1);
             heroHitPoints = heroHitPoints - opponentAttack;
-            if (heroHitPoints < 0) {
-                //lose fucntionality
-                console.log("you lose");
+            if (heroHitPoints <= 0) {
+                arenaDiv.text("<h1><strong>You were defeated</strong></h1>")
             }
-            console.log("opponent hit points: " + opponentHitPoints);
-            console.log("hero hit points: " + heroHitPoints);
         }
     });
 
-    clearButtonDiv.on("click", function () {
-        if (!attackButtonHit) {
-            resetHero(heroDiv, heroCharacter);
-            resetOpponent(opponentDiv, opponentCharacter)
-            heroDiv.empty();
-            opponentDiv.empty();
-            heroCharacter = "";
-            opponentCharacter = "";
-        }
-    });
+    // create attack button if hero and opponent have been chosen
+    function createAttackButton() {
+        if (heroCharacterChosen && opponentCharacterChosen) {
+            var firstTwoColumn = $("<div/>", { class: "col-lg-2" });
+            var aButtonColumn = $("<div/>", { class: "col-lg-8" });
+            var aButton = $("<button/>", { class: "btn btn-danger btn-lg btn-block", id: "attack-button", text: "ATTACK" })
+            var secondTwoColumn = $("<div/>", { class: "col-lg-2" });
 
-    // check if hero and opponent have been chosen
-    function checkAttackButton() {
-        if (heroCharacter && opponentCharacter) {
-            console.log("made it here")
-            enableAttack();
+            firstTwoColumn.appendTo(buttonsDiv);
+            aButton.appendTo(aButtonColumn);
+            aButtonColumn.appendTo(buttonsDiv);
+            secondTwoColumn.appendTo(buttonsDiv);
         }
     };
-
-    function enableAttack() {
-        attackButtonDiv.removeAttr('disabled');
-    }
-
-    function resetHero(heroDiv, heroCharacter) {
-        if (heroCharacter === "luke") {
-            newDiv = $("<div>");
-            newDiv.attr("id", "luke");
-            heroDiv.clone().appendTo(newDiv);
-            newDiv.appendTo($("#luke-card"));
-        }
-        if (heroCharacter === "rey") {
-            newDiv = $("<div>");
-            heroDiv.clone().appendTo(newDiv);
-            newDiv.appendTo($("#rey-card"));
-        }
-        if (heroCharacter === "hanSolo") {
-            newDiv = $("<div>");
-            heroDiv.clone().appendTo(newDiv);
-            newDiv.appendTo($("#han-solo-card"));
-        }
-        if (heroCharacter === "yoda") {
-            newDiv = $("<div>");
-            heroDiv.clone().appendTo(newDiv);
-            newDiv.appendTo($("#yoda-card"));
-        }
-    }
-    function resetOpponent(opponentDiv, opponentCharacter) {
-        if (opponentCharacter === "darthVader") {
-            newDiv = $("<div>");
-            opponentDiv.clone().appendTo(newDiv);
-            newDiv.appendTo($("#darth-vader-card"));
-        }
-        if (opponentCharacter === "kyloRen") {
-            newDiv = $("<div>");
-            opponentDiv.clone().appendTo(newDiv);
-            newDiv.appendTo($("#kylo-ren-card"));
-        }
-        if (opponentCharacter === "darthMaul") {
-            newDiv = $("<div>");
-            opponentDiv.clone().appendTo(newDiv);
-            newDiv.appendTo($("#darth-maul-card"));
-        }
-        if (opponentCharacter === "senatorPalpatine") {
-            newDiv = $("<div>");
-            opponentDiv.clone().appendTo(newDiv);
-            newDiv.appendTo($("#senator-palpatine-card"));
-        }
-    }
 });
