@@ -1,5 +1,7 @@
 # unit-4-game
 
+![StarWars RPG Logo](./assets/images/banner.png)
+
 ## **This game is designed to be a Star Wars RPG**
 
 ### **It begins by allowing the user to choose a hero**
