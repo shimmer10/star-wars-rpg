@@ -123,8 +123,7 @@ $(document).ready(function () {
 
     // move chosen opponent to arena
     $(document).on('click', '.opponent', function () {
-    // $(".opponent").on("click", function () {
-        arenaDiv.text("Arena:")
+        arenaDiv.text("Arena")
         if (!opponentCharacterChosen) {
             opponentCharacterChosen = true;
             opponentHitPoints = this.id.split(" ")[0];
@@ -136,7 +135,7 @@ $(document).ready(function () {
             chooseOpponentTextDiv.empty()
             // only create button with first enemy chosen
             if (opponentNameArray.length === 4) {
-                checkAttackButton();
+                createAttackButton();
             }
         }
     });
@@ -186,7 +185,6 @@ $(document).ready(function () {
             // font color red if under 100
             if (opponentHitPoints <= 100) {
                 opponentFooter.html(opponentText).addClass("red");
-
             }
             else {
                 opponentFooter.html(opponentText);
@@ -202,7 +200,8 @@ $(document).ready(function () {
                 opponentCharacterChosen = false;
                 arenaOpponentDiv.empty();
                 if (opponentNameArray === undefined || opponentNameArray.length == 0) {
-                    arenaDiv.html("<h1><strong>Congratulations! You defeated all of the opponents!</strong></h1>");
+                    createResetButton();
+                    arenaDiv.html("<h1><strong>Congratulations! You defeated all of the opponents! Press the RESET button to play again!</strong></h1>");
                 }
             }
 
@@ -222,18 +221,25 @@ $(document).ready(function () {
 
                 // check if hero is defeated
                 if (heroHitPoints <= 0) {
-                    arenaDiv.html("<h1><strong>Oh No! You were defeated!</strong></h1>");
+                    createResetButton();
+                    arenaDiv.html("<h1><strong>Oh No! You were defeated! Press the RESET button to play again!</strong></h1>");
                 }
             }
         });
     }
 
+    function canReset() {
+        $("#reset-button").on("click", function () {
+            window.location.reload()
+        });
+    }
+
     // create attack button if hero and opponent have been chosen
-    function checkAttackButton() {
+    function createAttackButton() {
         if (heroCharacterChosen && opponentCharacterChosen) {
             var firstTwoColumn = $("<div/>", { class: "col-lg-2" });
             var aButtonColumn = $("<div/>", { class: "col-lg-8" });
-            var aButton = $("<button/>", { class: "btn btn-danger btn-lg btn-block", id: "attack-button", text: "ATTACK" });
+            var aButton = $("<button/>", { class: "btn btn-danger btn-lg btn-block mb-3", id: "attack-button", text: "ATTACK" });
             var secondTwoColumn = $("<div/>", { class: "col-lg-2" });
 
             firstTwoColumn.appendTo(buttonsDiv);
@@ -243,4 +249,17 @@ $(document).ready(function () {
             canAttack();
         }
     };
+
+    function createResetButton() {
+        var firstTwoColumn = $("<div/>", { class: "col-lg-2" });
+        var aButtonColumn = $("<div/>", { class: "col-lg-8" });
+        var aButton = $("<button/>", { class: "btn btn-secondary btn-lg btn-block mt-3", id: "reset-button", text: "RESET" });
+        var secondTwoColumn = $("<div/>", { class: "col-lg-2" });
+
+        firstTwoColumn.appendTo(buttonsDiv);
+        aButton.appendTo(aButtonColumn);
+        aButtonColumn.appendTo(buttonsDiv);
+        secondTwoColumn.appendTo(buttonsDiv);
+        canReset();
+    }
 });
