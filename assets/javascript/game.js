@@ -85,10 +85,9 @@ $(document).ready(function () {
     var buttonsDiv = $("#buttons");
     var chooseHeroTextDiv = $("#choose-hero-text");
     var chooseOpponentTextDiv = $("#choose-opponent-text")
-    var attackButton = $("#attack-button");
 
     // variables
-    var heroCardsArray = [luke, rey, hanSolo, yoda] //, darthVader, kyloRen, darthMaul, senatorPalpatine];
+    var heroCardsArray = [luke, rey, hanSolo, yoda]
     var heroCharacterChosen = false;
     var heroHitPoints = 0;
     var heroFooter = "";
