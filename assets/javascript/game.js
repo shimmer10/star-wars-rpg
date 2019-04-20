@@ -200,6 +200,8 @@ $(document).ready(function () {
                 opponentCharacterChosen = false;
                 arenaOpponentDiv.empty();
                 if (opponentNameArray === undefined || opponentNameArray.length == 0) {
+                    // delete attack button, create reset button, change user text
+                    buttonsDiv.empty();
                     createResetButton();
                     arenaDiv.html("<h1><strong>Congratulations! You defeated all of the opponents! Press the RESET button to play again!</strong></h1>");
                 }
@@ -221,6 +223,8 @@ $(document).ready(function () {
 
                 // check if hero is defeated
                 if (heroHitPoints <= 0) {
+                    // delete attack button, create reset button, change user text
+                    buttonsDiv.empty();
                     createResetButton();
                     arenaDiv.html("<h1><strong>Oh No! You were defeated! Press the RESET button to play again!</strong></h1>");
                 }
