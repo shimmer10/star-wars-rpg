@@ -7,7 +7,7 @@ $(document).ready(function () {
         "lastName": "Skywalker",
         "visibleHP": 240,
         "hitPoints": 240,
-        "attackPower": 5,
+        "attackPower": 3,
         "status": "hero",
         "image": "./assets/images/LukeSkywalker.jpg"
     };
@@ -16,7 +16,7 @@ $(document).ready(function () {
         "lastName": "",
         "visibleHP": 250,
         "hitPoints": 250,
-        "attackPower": 6,
+        "attackPower": 4,
         "status": "hero",
         "image": "./assets/images/Rey.png"
     };
@@ -25,7 +25,7 @@ $(document).ready(function () {
         "lastName": "Solo",
         "visibleHP": 230,
         "hitPoints": 230,
-        "attackPower": 4,
+        "attackPower": 2,
         "status": "hero",
         "image": "./assets/images/HanSolo.jpg"
     };
@@ -34,7 +34,7 @@ $(document).ready(function () {
         "lastName": "",
         "visibleHP": "Unknown",
         "hitPoints": 300,
-        "attackPower": 7,
+        "attackPower": 5,
         "status": "hero",
         "image": "./assets/images/Yoda.jpg"
     };
@@ -43,7 +43,7 @@ $(document).ready(function () {
         "lastName": "Vader",
         "visibleHP": 240,
         "hitPoints": 240,
-        "attackPower": 5,
+        "attackPower": 13,
         "status": "opponent",
         "image": "./assets/images/DarthVader.jpg"
     };
@@ -52,7 +52,7 @@ $(document).ready(function () {
         "lastName": "Ren",
         "visibleHP": 250,
         "hitPoints": 250,
-        "attackPower": 6,
+        "attackPower": 14,
         "status": "opponent",
         "image": "./assets/images/KyloRen.jpg"
     };
@@ -61,7 +61,7 @@ $(document).ready(function () {
         "lastName": "Maul",
         "visibleHP": 230,
         "hitPoints": 230,
-        "attackPower": 4,
+        "attackPower": 12,
         "status": "opponent",
         "image": "./assets/images/DarthMaul.jpg"
     };
@@ -70,7 +70,7 @@ $(document).ready(function () {
         "lastName": "Palpatine",
         "visibleHP": "Unknown",
         "hitPoints": 300,
-        "attackPower": 4,
+        "attackPower": 15,
         "status": "opponent",
         "image": "./assets/images/SenatorPalpatine.jpg"
     };
@@ -83,20 +83,25 @@ $(document).ready(function () {
     var arenaOpponentDiv = $("#arena-opponent");
     var opponentCardsDiv = $("#opponent-cards");
     var buttonsDiv = $("#buttons");
+    var chooseHeroTextDiv = $("#choose-hero-text");
+    var chooseOpponentTextDiv = $("#choose-opponent-text")
     var attackButton = $("#attack-button");
 
     // variables
-    var characterArray = [luke, rey, hanSolo, yoda, darthVader, kyloRen, darthMaul, senatorPalpatine];
+    var heroCardsArray = [luke, rey, hanSolo, yoda] //, darthVader, kyloRen, darthMaul, senatorPalpatine];
     var heroCharacterChosen = false;
     var heroHitPoints = 0;
     var heroFooter = "";
     var opponentCharacterChosen = false;
-    var opponentArray = [darthVader.lastName, kyloRen.lastName, darthMaul.lastName, senatorPalpatine.lastName]
+    var opponentCardArray = [darthVader, kyloRen, darthMaul, senatorPalpatine];
+    var opponentNameArray = [darthVader.lastName, kyloRen.lastName, darthMaul.lastName, senatorPalpatine.lastName]
     var opponentHitPoints = 0;
     var opponentFooter = "";
 
-    // start game by building cards
-    buildCards();
+    // start game by building cards and 
+    // directing the player to choose a hero
+    buildCharacterCards(heroCardsArray);
+    chooseHeroTextDiv.html("Choose a Hero:")
 
     // move chosen hero to arena
     $(".hero").on("click", function () {
@@ -109,14 +114,18 @@ $(document).ready(function () {
             heroFooter = $("#" + heroName + "hero-footer");
             heroFooter.html("Hit Points: " + heroHitPoints);
             $(this).appendTo(arenaHeroDiv);
+            chooseHeroTextDiv.empty();
+            heroCardsDiv.empty();
+            chooseOpponentTextDiv.html("Choose an Opponent:")
+            buildCharacterCards(opponentCardArray);
         }
     });
 
     // move chosen opponent to arena
-    $(".opponent").on("click", function () {
+    $(document).on('click', '.opponent', function () {
+    // $(".opponent").on("click", function () {
         arenaDiv.text("Arena:")
-        // must choose hero first
-        if (!opponentCharacterChosen && heroCharacterChosen) {
+        if (!opponentCharacterChosen) {
             opponentCharacterChosen = true;
             opponentHitPoints = this.id.split(" ")[0];
             opponentAttackPower = this.id.split(" ")[1];
@@ -124,17 +133,18 @@ $(document).ready(function () {
             opponentFooter = $("#" + opponentName + "opponent-footer");
             opponentFooter.html("Hit Points: " + opponentHitPoints);
             $(this).appendTo(arenaOpponentDiv);
+            chooseOpponentTextDiv.empty()
             // only create button with first enemy chosen
-            if (opponentArray.length === 4) {
+            if (opponentNameArray.length === 4) {
                 checkAttackButton();
             }
         }
     });
 
     // build the character cards
-    function buildCards() {
+    function buildCharacterCards(currentArray) {
         arenaDiv.text("Arena")
-        $.each(characterArray, function () {
+        $.each(currentArray, function () {
             var character = this;
             var status = this.status;
             var columnDiv = $("<div/>", { class: "col-lg-3" });
@@ -184,14 +194,14 @@ $(document).ready(function () {
 
             // check if opponent is defeated
             if (opponentHitPoints <= 0) {
-                var index = opponentArray.indexOf(opponentName);
+                var index = opponentNameArray.indexOf(opponentName);
                 if (index !== -1) {
-                    opponentArray.splice(index, 1);
+                    opponentNameArray.splice(index, 1);
                 }
                 arenaDiv.text("Arena: Choose another opponent");
                 opponentCharacterChosen = false;
                 arenaOpponentDiv.empty();
-                if (opponentArray === undefined || opponentArray.length == 0) {
+                if (opponentNameArray === undefined || opponentNameArray.length == 0) {
                     arenaDiv.html("<h1><strong>Congratulations! You defeated all of the opponents!</strong></h1>");
                 }
             }
@@ -212,7 +222,7 @@ $(document).ready(function () {
 
                 // check if hero is defeated
                 if (heroHitPoints <= 0) {
-                    arenaDiv.text("<h1><strong>You were defeated</strong></h1>");
+                    arenaDiv.html("<h1><strong>Oh No! You were defeated!</strong></h1>");
                 }
             }
         });
