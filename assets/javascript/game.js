@@ -7,7 +7,7 @@ $(document).ready(function () {
         "lastName": "Skywalker",
         "visibleHP": 240,
         "hitPoints": 240,
-        "attackPower": 3,
+        "attackPower": 4,
         "status": "hero",
         "image": "./assets/images/LukeSkywalker.jpg"
     };
@@ -16,7 +16,7 @@ $(document).ready(function () {
         "lastName": "",
         "visibleHP": 250,
         "hitPoints": 250,
-        "attackPower": 4,
+        "attackPower": 5,
         "status": "hero",
         "image": "./assets/images/Rey.png"
     };
@@ -25,7 +25,7 @@ $(document).ready(function () {
         "lastName": "Solo",
         "visibleHP": 230,
         "hitPoints": 230,
-        "attackPower": 2,
+        "attackPower": 3,
         "status": "hero",
         "image": "./assets/images/HanSolo.jpg"
     };
@@ -33,8 +33,8 @@ $(document).ready(function () {
         "firstName": "Yoda",
         "lastName": "",
         "visibleHP": "Unknown",
-        "hitPoints": 300,
-        "attackPower": 5,
+        "hitPoints": 230,
+        "attackPower": 4,
         "status": "hero",
         "image": "./assets/images/Yoda.jpg"
     };
@@ -215,7 +215,13 @@ $(document).ready(function () {
                 // update hero hit points
                 // font color red if under 100
                 if (heroHitPoints <= 100) {
-                    heroFooter.html(heroText).addClass("red");
+                    // lowest display number is zero
+                    if (heroHitPoints <=0) {
+                        heroFooter.html("Hit Points: 0").addClass("red");
+                    }
+                    else {
+                        heroFooter.html(heroText).addClass("red");
+                    }
                 }
                 else {
                     heroFooter.html(heroText);
