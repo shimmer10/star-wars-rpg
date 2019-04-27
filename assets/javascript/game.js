@@ -215,7 +215,7 @@ $(document).ready(function () {
                 // font color red if under 100
                 if (heroHitPoints <= 100) {
                     // lowest display number is zero
-                    if (heroHitPoints <=0) {
+                    if (heroHitPoints <= 0) {
                         heroFooter.html("Hit Points: 0").addClass("red");
                     }
                     else {
