@@ -1,8 +1,9 @@
-# unit-4-game
+# star-wars-rpg
 
 ![StarWars RPG Logo](./assets/images/banner.png)
 
 ## **This game is designed to be a Star Wars RPG**
+## *https://shimmer10.github.io/star-wars-rpg/*
 
 ### **It begins by allowing the user to choose a hero**
      * These disappear upon the user's choice of one
